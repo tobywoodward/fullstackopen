@@ -17,6 +17,16 @@ const clickAnecdote = (props) => {
   console.log('new value', newVal)
 }
 
+const clickVote = (props) => {
+  const { votes, setVotes, selected } = props
+  const copy = [...votes]
+  copy[selected] += 1
+  setVotes(copy)
+} 
+
+// getHighestIndex removed — compute mostVoted directly from `votes` inside App
+
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -31,11 +41,19 @@ const App = () => {
    
   const [selected, setSelected] = useState(0)
   const options = anecdotes.length
+  const [votes, setVotes] = useState(Array(options).fill(0))
+  const mostVoted = votes.indexOf(Math.max(...votes))
 
   return (
     <div>
+      <h2>Anecdote of the day</h2>
       {anecdotes[selected]} <br/>
+      Has {votes[selected]} votes <br/>
+      <Button onClick={()=>clickVote({votes, setVotes, selected})} text="Vote"/>
       <Button onClick={() => clickAnecdote({selected, setSelected, range: options})} text="Next Anecdote"/>
+      <h2>Anecdote with most votes</h2>
+      {anecdotes[mostVoted]}<br />
+      Has {votes[mostVoted]} votes
     </div>
   )
 }
