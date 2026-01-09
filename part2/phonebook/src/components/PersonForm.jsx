@@ -5,6 +5,8 @@ const PersonForm = (props) => {
   const persons = props.persons
   const setPersons = props.setPersons
   const numbersService = props.numbersService
+  const setConfirmation = props.setConfirmation
+  const setError = props.setError
 
   const [newName, setNewName] = useState('')
   const handleNameChange = (event) => {
@@ -29,11 +31,19 @@ const PersonForm = (props) => {
           setPersons(persons.map(person => person.id === newPerson.id ? returnedPerson : person))
         })
         .catch(error => {
-          alert(`${newName} was already deleted from the server`)
+          // alert(`${newName} was already deleted from the server`)
+          setError(`Information of ${newName} has already been deleted from the server`)
+          setTimeout(() => {
+            setError(null)
+          }, 5000)
           setPersons(persons.filter(p => p.id != newPerson.id))
         })
       }
     } else {
+      setConfirmation(`Added ${newName}`)
+      setTimeout(() => {
+        setConfirmation(null)
+      }, 5000)
       numbersService.create({name : newName, number : newNumber}).then((returnedPerson) => {
         setPersons(persons.concat(returnedPerson))
         setNewName('')
