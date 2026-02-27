@@ -7,14 +7,20 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "run": "node index.js",
-    "dev": "node index.js --watch",
-    "test": "node --test"
+    "start": "NODE_ENV=production node index.js",
+    "dev": "NODE_ENV=development node index.js --watch",
+    "test": "NODE_ENV=test node --test",
+    "test:only": "NODE_ENV=test node --test --test-only"
   },
   "dependencies": {
+    "brcypt": "^1.0.1",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "lodash": "^4.17.23",
     "mongoose": "^9.2.2"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0",
+    "supertest": "^7.2.2"
   }
 }
