@@ -10,11 +10,13 @@ const Blog = ({ blog, updateBlog, handleDeleteBlog, user }) => {
 
   return (
     <div className='blog'>
-      {blog.title} by {blog.author}
-      <button onClick={() => setExpanded(!expanded)}>{expanded ? 'hide' : 'view'}</button>
-      <br/>
+      <div className='blogHeader'>
+        {blog.title} by {blog.author}
+        <button onClick={() => setExpanded(!expanded)}>{expanded ? 'hide' : 'view'}</button>
+      </div>
+      {/* <br/> */}
       {expanded && (
-        <div>
+        <div className='blogDetails'>
           {blog.url}<br/>
           Likes: {blog.likes}
           <button onClick={handleLike}>Like</button>
